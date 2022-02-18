@@ -1,14 +1,32 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Login from "./components/Login";
-import Logout from "./components/Logout";
+import RequireAuth from "./components/RequireAuth";
+import Home from "./pages/Home";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
     <div className="App">
-      <Login />
-      <br />
-      <Logout />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <RequireAuth>
+              <Home />
+            </RequireAuth>
+          }
+        />
+        <Route path="login" element={<LoginPage />} />
+        <Route
+          path="*"
+          element={
+            <main style={{ padding: "1rem" }}>
+              <p>There's nothing here!</p>
+            </main>
+          }
+        />
+      </Routes>
     </div>
   );
 }
