@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import RequireAuth from "./components/RequireAuth";
+import RequireAuth from "./components/auth/RequireAuth";
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 

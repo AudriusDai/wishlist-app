@@ -4,10 +4,10 @@ import {
   GoogleLoginResponse,
   GoogleLoginResponseOffline,
 } from "react-google-login";
-import { refreshTokenSetup } from "../utils/refreshToken";
-import { googleClientId } from "../config";
+import { refreshTokenSetup } from "../../utils/refreshToken";
+import { googleClientId } from "../../config";
 import { useNavigate } from "react-router-dom";
-import { setToken, setProfile } from "../store/storeAuth";
+import { setToken, setProfile } from "../../store/storeAuth";
 
 const LoginButton = () => {
   const navigate = useNavigate();

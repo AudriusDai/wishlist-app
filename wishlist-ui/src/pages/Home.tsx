@@ -1,5 +1,5 @@
 import React from "react";
-import LogoutButton from "../components/LogoutButton";
+import LogoutButton from "../components/auth/LogoutButton";
 import { getProfile } from "../store/storeAuth";
 
 const Home = () => {

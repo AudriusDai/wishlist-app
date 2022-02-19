@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { getToken } from "../store/storeAuth";
+import { getToken } from "../../store/storeAuth";
 
 const RequireAuth = ({ children }: any) => {
   const isAuthenticated = getToken();

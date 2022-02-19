@@ -1,5 +1,5 @@
 import React from "react";
-import LogoutButton from "../components/LogoutButton";
+import LogoutButton from "../components/auth/LogoutButton";
 
 const LogoutPage = () => {
   // todo: logout automatically and redirect to /home
