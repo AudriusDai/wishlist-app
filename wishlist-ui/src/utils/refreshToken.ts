@@ -1,4 +1,4 @@
-import { setToken } from "../store/store";
+import { setToken } from "../store/storeAuth";
 
 export const refreshTokenSetup = (res: any) => {
   // Timing to renew access token
