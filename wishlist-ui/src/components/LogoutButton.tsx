@@ -2,12 +2,12 @@ import React from "react";
 import { GoogleLogout } from "react-google-login";
 import { useNavigate } from "react-router-dom";
 import { googleClientId } from "../config";
+import { clearStore } from "../store/store";
 
 const LogoutButton = () => {
   const navigate = useNavigate();
   const onSuccess = () => {
-    localStorage.setItem("authToken", "");
-    localStorage.setItem("name", "");
+    clearStore();
     navigate("/login");
   };
 

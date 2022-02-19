@@ -1,12 +1,13 @@
 import React from "react";
 import LogoutButton from "../components/LogoutButton";
+import { getToken, getProfile } from "../store/store";
 
 const Home = () => {
-  const token = localStorage.getItem("authToken");
-  const name = localStorage.getItem("name");
+  const token = getToken();
+  const profile = getProfile();
   return (
     <div>
-      {`Welcome to wishlist app ${name}!`}
+      {`Welcome to wishlist app ${profile.name}!`}
       <br />
       {token}
       <br />

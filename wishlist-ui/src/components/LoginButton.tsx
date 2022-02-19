@@ -7,6 +7,7 @@ import {
 import { refreshTokenSetup } from "../utils/refreshToken";
 import { googleClientId } from "../config";
 import { useNavigate } from "react-router-dom";
+import { setToken, setProfile } from "../store/store";
 
 const LoginButton = () => {
   const navigate = useNavigate();
@@ -15,8 +16,8 @@ const LoginButton = () => {
     (res: GoogleLoginResponse | GoogleLoginResponseOffline) => {
       const response = res as GoogleLoginResponse;
       refreshTokenSetup(response);
-      localStorage.setItem("authToken", response.tokenId);
-      localStorage.setItem("name", response.profileObj.givenName);
+      setToken(response.tokenId);
+      setProfile(response.profileObj);
       navigate("/");
     },
     [navigate]

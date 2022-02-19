@@ -5,7 +5,7 @@ const LogoutPage = () => {
   // todo: logout automatically and redirect to /home
   return (
     <div>
-      <LogoutButton></LogoutButton>
+      <LogoutButton />
     </div>
   );
 };
