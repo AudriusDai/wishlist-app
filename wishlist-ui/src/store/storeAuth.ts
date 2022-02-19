@@ -16,8 +16,3 @@ export const setProfile = (profile: Profile) =>
 export const getProfile = (): Profile =>
   JSON.parse(localStorage.getItem("profileDetails") || "") as Profile;
 export const clearProfile = () => localStorage.removeItem("profileDetails");
-
-export const clearStore = () => {
-  clearToken();
-  clearProfile();
-};
