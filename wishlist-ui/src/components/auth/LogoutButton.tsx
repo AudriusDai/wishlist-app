@@ -2,12 +2,13 @@ import React from "react";
 import { GoogleLogout } from "react-google-login";
 import { useNavigate } from "react-router-dom";
 import { googleClientId } from "../../config";
-import { clearStore } from "../../store/store";
+import { useAuth } from "./AuthContext";
 
 const LogoutButton = () => {
   const navigate = useNavigate();
+  const { state, dispatch } = useAuth();
   const onSuccess = () => {
-    clearStore();
+    dispatch({ type: "CLEAR" });
     navigate("/login");
   };
 

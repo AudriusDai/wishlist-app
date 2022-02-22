@@ -4,20 +4,25 @@ import {
   GoogleLoginResponse,
   GoogleLoginResponseOffline,
 } from "react-google-login";
-import { refreshTokenSetup } from "../../utils/refreshToken";
 import { googleClientId } from "../../config";
 import { useNavigate } from "react-router-dom";
-import { setToken, setProfile } from "../../store/storeAuth";
+import { Profile, useAuth } from "./AuthContext";
 
 const LoginButton = () => {
   const navigate = useNavigate();
+  const { state, dispatch } = useAuth();
 
   const onSuccess = useCallback(
     (res: GoogleLoginResponse | GoogleLoginResponseOffline) => {
       const response = res as GoogleLoginResponse;
-      refreshTokenSetup(response);
-      setToken(response.tokenId);
-      setProfile(response.profileObj);
+      dispatch({
+        type: "UPDATE_PROFILE",
+        profile: response.profileObj as Profile,
+      });
+      dispatch({
+        type: "UPDATE_TOKEN",
+        token: response.tokenId,
+      });
       navigate("/");
     },
     [navigate]
@@ -28,17 +33,14 @@ const LoginButton = () => {
   };
 
   return (
-    <div>
-      <GoogleLogin
-        clientId={googleClientId}
-        buttonText="Login"
-        onSuccess={onSuccess}
-        onFailure={onFailure}
-        cookiePolicy={"single_host_origin"}
-        style={{ marginTop: "100px" }}
-        isSignedIn={true}
-      />
-    </div>
+    <GoogleLogin
+      clientId={googleClientId}
+      buttonText="Login"
+      onSuccess={onSuccess}
+      onFailure={onFailure}
+      cookiePolicy={"single_host_origin"}
+      isSignedIn={true}
+    />
   );
 };
 
