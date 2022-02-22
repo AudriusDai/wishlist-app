@@ -1,12 +1,11 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
 
 import { useAuth } from "./AuthContext";
 
 const RequireAuth = ({ children }: any) => {
-  const { state, dispatch } = useAuth();
+  const { state } = useAuth();
 
-  return state?.token ? children : <Navigate to="/login" replace />;
+  return state?.token ? children : <div> Please login!</div>;
 };
 
 export default RequireAuth;

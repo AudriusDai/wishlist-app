@@ -1,30 +1,31 @@
-import React from "react";
-import { GoogleLogout } from "react-google-login";
+import React, { useCallback } from "react";
+import { useGoogleLogout } from "react-google-login";
 import { useNavigate } from "react-router-dom";
 import { googleClientId } from "../../config";
 import { useAuth } from "./AuthContext";
 
 const LogoutButton = () => {
   const navigate = useNavigate();
-  const { state, dispatch } = useAuth();
-  const onSuccess = () => {
+  const { dispatch } = useAuth();
+  const onSuccess = useCallback(() => {
     dispatch({ type: "CLEAR" });
-    navigate("/login");
-  };
+    navigate("/");
+  }, [dispatch, navigate]);
 
   const onFailure = () => {
     alert("failed to logout!");
   };
 
+  const { signOut } = useGoogleLogout({
+    clientId: googleClientId,
+    onLogoutSuccess: onSuccess,
+    onFailure,
+  });
+
   return (
-    <div>
-      <GoogleLogout
-        clientId={googleClientId}
-        buttonText="Logout"
-        onLogoutSuccess={onSuccess}
-        onFailure={onFailure}
-      ></GoogleLogout>
-    </div>
+    <button onClick={signOut} className="active">
+      {"Logout"}
+    </button>
   );
 };
 

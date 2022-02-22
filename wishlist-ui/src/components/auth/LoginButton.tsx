@@ -1,17 +1,16 @@
 import React, { useCallback } from "react";
 import {
-  GoogleLogin,
   GoogleLoginResponse,
   GoogleLoginResponseOffline,
+  useGoogleLogin,
 } from "react-google-login";
-import { googleClientId } from "../../config";
 import { useNavigate } from "react-router-dom";
+import { googleClientId } from "../../config";
 import { Profile, useAuth } from "./AuthContext";
 
-const LoginButton = () => {
+function LoginButton() {
   const navigate = useNavigate();
-  const { state, dispatch } = useAuth();
-
+  const { dispatch } = useAuth();
   const onSuccess = useCallback(
     (res: GoogleLoginResponse | GoogleLoginResponseOffline) => {
       const response = res as GoogleLoginResponse;
@@ -25,23 +24,28 @@ const LoginButton = () => {
       });
       navigate("/");
     },
-    [navigate]
+    [dispatch, navigate]
   );
 
   const onFailure = (res: any) => {
     console.log("Login failed: res:", res);
   };
 
+  const { signIn } = useGoogleLogin({
+    onSuccess,
+    onFailure,
+    clientId: googleClientId,
+    isSignedIn: true,
+    accessType: "offline",
+    // responseType: 'code',
+    // prompt: 'consent',
+  });
+
   return (
-    <GoogleLogin
-      clientId={googleClientId}
-      buttonText="Login"
-      onSuccess={onSuccess}
-      onFailure={onFailure}
-      cookiePolicy={"single_host_origin"}
-      isSignedIn={true}
-    />
+    <button onClick={signIn} className="active">
+      {"Login via Google"}
+    </button>
   );
-};
+}
 
 export default LoginButton;

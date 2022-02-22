@@ -1,21 +1,25 @@
 import React from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { useAuth } from "./components/auth/AuthContext";
+import LoginButton from "./components/auth/LoginButton";
+import LogoutButton from "./components/auth/LogoutButton";
 import RequireAuth from "./components/auth/RequireAuth";
 import Home from "./pages/Home";
-import LoginPage from "./pages/LoginPage";
 
 function App() {
-  const { state, dispatch } = useAuth();
+  const { state } = useAuth();
 
   return (
     <div className="App">
       <div className="topnav">
         {state?.profile?.name ? (
-          <div className="profile-name">{state?.profile?.name}</div>
+          <>
+            <div className="profile-name">{state?.profile?.name}</div>
+            <LogoutButton />
+          </>
         ) : (
-          <Link to={"/login"}>{"Login"}</Link>
+          <LoginButton />
         )}
       </div>
       <Routes>
@@ -27,7 +31,6 @@ function App() {
             </RequireAuth>
           }
         />
-        <Route path="login" element={<LoginPage />} />
         <Route
           path="*"
           element={
